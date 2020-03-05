@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { Text, View, Button, TextInput } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-
+import axios from "axios"
 import { connect } from 'react-redux'
 import { loginAuth } from '../../actions/userAuthActions'
 class Login extends Component {
+  static navigationOptions = {
+    header: null
+  }
   constructor(props) {
     super(props)
 
@@ -17,13 +20,24 @@ class Login extends Component {
   }
   componentDidMount() {
     // console.log(this.props.auth)
-    // if (this.props.auth.isAuthenticated) {
-    //   this.props.navigation.navigate('Dashboard')
-    // }
+
+    axios.get("https://pacific-coast-97072.herokuapp.com/api/users/").then(res => {
+      console.log(res.data)
+
+    }).catch(err => {
+      console.log(err)
+
+    })
+
+    if (this.props.auth.isAuthenticated) {
+      this.props.navigation.navigate('Dashboard')
+    }
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillUpdate(nextProps) {
+    // console.log(nextProps)
+
     if (nextProps.auth.isAuthenticated) {
-      // nextProps.navigation.navigate('Dashboard')
+      nextProps.navigation.navigate('Dashboard')
       // navigation.push('Dashboard')
     }
     if (nextProps.errors) {
@@ -33,6 +47,8 @@ class Login extends Component {
   }
   loginUser() {
     let { email, password } = this.state
+    console.log(this.state)
+
     this.props.loginAuth(email, password)
   }
 

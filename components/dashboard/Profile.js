@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 export class Profile extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
+
 
   render() {
-    let { navigation } = this.props
+    let { navigation, auth } = this.props
+    console.log(auth)
+
     return (
       <View>
         <Text> prop </Text>

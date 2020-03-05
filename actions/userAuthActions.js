@@ -43,24 +43,36 @@ export const setLoggedUser = decoded => {
   }
 }
 export const loginAuth = (email, password) => {
+  console.log(email, password)
+
   return dispatch => {
     // dispatch(startAuth())
     axios
       .post('https://pacific-coast-97072.herokuapp.com/api/users/login', {
+        // .post('http://192.168.0.214:5000/api/users/login', {
+        // .post('http://10.0.2.2:5000/api/users/login', {
         email: email,
         password: password
       })
       .then(result => {
-        const token = result.data.token
-        AsyncStorage.setItem('token', token)
-        const decoded = jwt_decode(token)
-        setUserToken(token)
-        dispatch(setLoggedUser(decoded))
+        if (result.data.token !== "") {
+
+          const token = result.data.token
+          AsyncStorage.setItem('token', token)
+          const decoded = jwt_decode(token)
+          setUserToken(token)
+          dispatch(setLoggedUser(decoded))
+        }
+        console.log(result)
+
+
+        // console.log(result)
+
 
         // //sets the expirey date
         // const expire = new Date(new Date().getTime() + 10000 * 1000)
         // console.log(token)
-        console.log(result.data)
+        // console.log(result.data)
 
         //stores the the token and the expireation date in the browser
         //as a cookie

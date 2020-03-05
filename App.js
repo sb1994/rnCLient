@@ -46,10 +46,10 @@ const TabsScreen = () => (
   </TabStack.Navigator>)
 // const Drawer = createD
 
-const ProfileStackScreen = () => (
-  <ProfileStack.Navigator>
-    <ProfileStack.Screen name='Profile' component={Profile} />
-  </ProfileStack.Navigator>)
+// const ProfileStackScreen = () => (
+//   <ProfileStack.Navigator>
+//     <ProfileStack.Screen name='Profile' component={Profile} />
+//   </ProfileStack.Navigator>)
 const SearchStackScreen = () => (
   <SearchStack.Navigator>
     <SearchStack.Screen name='Search' component={SearchUsers} />
@@ -101,32 +101,23 @@ export class App extends Component {
       <Provider store={store}>
         <NavigationContainer>
 
-          {
-            this.state.tokenAuth ? (
-
-              <Drawer.Navigator>
-                <Drawer.Screen name="Home" component={TabsScreen} />
-
-                <Drawer.Screen name="Profile" component={ProfileStackScreen} />
-
-              </Drawer.Navigator>
-            ) : (
-
-                <AuthStack.Navigator>
-                  <AuthStack.Screen
-                    name='Login'
-                    component={Login}
-                    options={{ title: 'Sign In' }}
-                  />
-                  <AuthStack.Screen
-                    name='Register'
-                    component={Register}
-                    options={{ title: 'Sign Up' }}
-                  />
-                </AuthStack.Navigator>
-              )
-          }
-          {/* tabs */}
+          <AuthStack.Navigator>
+            <AuthStack.Screen
+              name='Login'
+              component={Login}
+              options={{ title: 'Sign In' }}
+            />
+            <AuthStack.Screen
+              name='Dashboard'
+              component={Dashboard}
+              options={{ title: 'Dashboard' }}
+            />
+            <AuthStack.Screen
+              name='Register'
+              component={Register}
+              options={{ title: 'Sign Up' }}
+            />
+          </AuthStack.Navigator>
 
 
         </NavigationContainer>

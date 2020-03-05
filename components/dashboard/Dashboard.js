@@ -4,19 +4,19 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 export class Dashboard extends Component {
-  static propTypes = {
-    prop: PropTypes
+  static navigationOptions = {
+    header: null
   }
 
   componentDidMount() {
-    console.log(this.props.auth.user)
+    // console.log(this.props.auth.user)
   }
   render() {
     let { user } = this.props.auth
     return (
       <View style={{ flex: 1, width: 100 + '%', height: 100 + '%' }}>
         <View style={styles.tempNav}>
-          <Text>Chat App</Text>
+          <Text>Chat Ap</Text>
         </View>
         <Text> {user.name}</Text>
         <Image
