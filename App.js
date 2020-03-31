@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
+// import Navigator from './Navigator'
 import { AsyncStorage } from 'react-native'
 import setUserToken from './utils/setUserToken'
 import { StyleSheet, Text, View } from 'react-native'
@@ -18,115 +19,83 @@ import store from './store'
 import jwt_decode from 'jwt-decode'
 
 import { setLoggedUser, logoutUser } from './actions/userAuthActions'
-//user compoenents
-import Login from './components/auth/Login'
-import Register from './components/auth/Register'
-import Dashboard from './components/dashboard/Dashboard'
-import Profile from './components/dashboard/Profile'
-import SearchUsers from './components/seach_users/SearchUsers'
-import SearchUsers2 from './components/seach_users/SearchUsers2'
-import Home from './components/Home'
-import Details from "./components/test/Details"
+// //user compoenents
+import LoginScreen from './screens/Auth/LoginScreen'
+import RegisterScreen from './screens/Auth/RegisterScreen'
+import SplashScreen from './screens/SplashScreen'
+// import Dashboard from './components/dashboard/Dashboard'
+import ProfileScreen from './screens/Private/ProfileScreen'
+import ProfileEditScreen from './screens/Private/ProfileEditScreen'
+import SearchScreen from './screens/Search/SearchScreen'
+import SearchUserDetailScreen from './screens/Search/SearchUserDetailScreen'
+import ChatScreen from './screens/Chat/ChatScreen'
+// import Chas from './screens/Search/Chas'
+// import SearchUsers2 from './components/seach_users/SearchUsers2'
+// import Home from './components/Home'
+// import Details from "./components/test/Details"
 
-
-const AuthStack = createStackNavigator()
-const TabStack = createBottomTabNavigator()
-const HomeStack = createStackNavigator()
-const SearchStack = createStackNavigator()
+const Stack = createStackNavigator()
 const ProfileStack = createStackNavigator()
+const SearchStack = createStackNavigator()
+const AuthTabStack = createBottomTabNavigator()
+const AppTabStack = createBottomTabNavigator()
 
-//create a Drawer
-const Drawer = createDrawerNavigator()
-
-
-const TabsScreen = () => (
-  <TabStack.Navigator>
-    <TabStack.Screen name='Home' component={HomeStackScreen} />
-    <TabStack.Screen name='Search' component={SearchStackScreen} />
-  </TabStack.Navigator>)
-// const Drawer = createD
-
-// const ProfileStackScreen = () => (
-//   <ProfileStack.Navigator>
-//     <ProfileStack.Screen name='Profile' component={Profile} />
-//   </ProfileStack.Navigator>)
-const SearchStackScreen = () => (
+//Profile Stack
+const ProfileStackNavigator = () => (
+  <ProfileStack.Navigator>
+    <ProfileStack.Screen name='ProfileDetail' component={ProfileScreen} />
+    <ProfileStack.Screen name='ProfileEdit' component={ProfileEditScreen} />
+  </ProfileStack.Navigator>
+)
+const SearchStackNavigator = () => (
   <SearchStack.Navigator>
-    <SearchStack.Screen name='Search' component={SearchUsers} />
-    <SearchStack.Screen name='Search2' component={SearchUsers2} />
+    <SearchStack.Screen name='SearchScreen' component={SearchScreen} />
+    <SearchStack.Screen
+      name='SearchUserDetail'
+      component={SearchUserDetailScreen}
+    />
   </SearchStack.Navigator>
 )
-const HomeStackScreen = () => (
-  <HomeStack.Navigator>
-    <HomeStack.Screen name='Home' component={Home} />
-    <HomeStack.Screen name='Details' component={Details} options={({ route }) => ({
-      title: route.params.name
-    })} />
-  </HomeStack.Navigator>
+
+//Authenticaed stack
+const AuthTabStackNavigator = () => (
+  <AuthTabStack.Navigator
+    tabBarOptions={{
+      activeTintColor: '#e91e63',
+      padding: 10
+    }}
+  >
+    <AuthTabStack.Screen name='Profile' component={ProfileStackNavigator} />
+    <AuthTabStack.Screen name='Search' component={SearchStackNavigator} />
+    <AuthTabStack.Screen name='Chat' component={ChatScreen} />
+  </AuthTabStack.Navigator>
 )
+// const AuthTabStackNavigator = () => (
+//   <AuthTabStack.Navigator
+//
+//   >
+//     <AuthTabStack.Screen name='Profile' component={ProfileStackNavigator} />
+//     <AuthTabStack.Screen name='Search' component={SearchScreen} />
+//     {/* <AuthTabStack.Screen name='Login' component={LoginScreen} />
+//     <AuthTabStack.Screen name='Register' component={RegisterScreen} /> */}
+//   </AuthTabStack.Navigator>
+// )
 
-export class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      tokenAuth: false
-    }
-  }
-
-  componentDidMount() {
-    AsyncStorage.getItem('token', (err, result) => {
-      // console.log(result)
-      if (result === null) {
-        console.log('token doent exist')
-        this.setState({
-          tokenAuth: false
-        })
-
-      } else {
-        console.log(result)
-        const decoded = jwt_decode(result)
-        store.dispatch(setLoggedUser(decoded))
-        // console.log(decoded)
-        this.setState({
-          tokenAuth: true
-        })
-      }
-    })
-  }
-  render() {
-    console.log(store)
-
-    return (
-      <Provider store={store}>
-        <NavigationContainer>
-
-          <AuthStack.Navigator>
-            <AuthStack.Screen
-              name='Login'
-              component={Login}
-              options={{ title: 'Sign In' }}
-            />
-            <AuthStack.Screen
-              name='Dashboard'
-              component={Dashboard}
-              options={{ title: 'Dashboard' }}
-            />
-            <AuthStack.Screen
-              name='Register'
-              component={Register}
-              options={{ title: 'Sign Up' }}
-            />
-          </AuthStack.Navigator>
-
-
-        </NavigationContainer>
-      </Provider>
-    )
-  }
+export default function App() {
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator headerMode='none'>
+          <Stack.Screen name='Splash' component={SplashScreen} />
+          <Stack.Screen name='Login' component={LoginScreen} />
+          <Stack.Screen name='Register' component={RegisterScreen} />
+          <Stack.Screen name='Profile' component={AuthTabStackNavigator} />
+          {/* <Stack.Screen name='Auth' component={AuthTabStackNavigator} /> */}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  )
 }
-
-export default App
 const styles = StyleSheet.create({
   container: {
     flex: 1,

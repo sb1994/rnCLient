@@ -1,4 +1,8 @@
-import { SET_LOGGED_USER, SET_SEARCHED_USER } from '../actions/action_types'
+import {
+  SET_LOGGED_USER,
+  SET_SEARCHED_USER,
+  START_AUTH
+} from '../actions/action_types'
 import { updateStateObject } from '../utils/setState'
 import isEmpty from '../validation/isEmpty'
 
@@ -9,7 +13,8 @@ const initialState = {
   loading: false,
   isAuthenticated: false,
   user: {},
-  searchedUser: {}
+  searchedUser: {},
+  feedId: null
 }
 
 const startAuth = (state, action) => {
@@ -25,7 +30,8 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        user: action.payload,
+        feedId: action.payload.id
       }
     case SET_SEARCHED_USER:
       return {

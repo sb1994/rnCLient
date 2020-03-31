@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../axios'
 import setUserToken from '../utils/setUserToken'
 import jwt_decode from 'jwt-decode'
 import { AsyncStorage } from 'react-native'
@@ -18,7 +18,58 @@ export const registerUser = userData => dispatch => {
       })
     )
 }
+export const cancelFriendRequest = user_id => dispatch => {
+  // console.log(user_id);
+  dispatch({
+    type: types.CANCEL_FRIEND_REQUEST
+  })
+  axios
+    .post(`/api/users/friends/cancel/${user_id}`, user_id)
+    .then(res => {
+      console.log(res.data)
+    })
 
+    .catch(err =>
+      dispatch({
+        type: types.FAIL_ADD_FRIEND,
+        payload: err.response.data
+      })
+    )
+}
+export const acceptFriendRequest = requesterId => dispatch => {
+  axios
+    .post(`/api/users/friends/accept/${requesterId}`)
+    .then(result => {
+      // dispatch(setLoggedUser(result.data));
+      console.log(result.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  // console.log(requesterId);
+  return {
+    type: types.ACCEPT_FRIEND_REQUEST
+  }
+  // axios
+  //   .post(`/api/users/friends/add/${user_id}`, user_id)
+  //   .then(res => {
+  //     dispatch({
+  //       type: types.ADD_FRIEND,
+  //       payload: res.data
+  //     });
+  //     console.log(res.data);
+  //   })
+
+  //   .catch(err =>
+  //     dispatch({
+  //       type: types.FAIL_ADD_FRIEND,
+  //       payload: err.response.data
+  //     })
+  //   );
+  // return {
+  //   type: types.ADD_FRIEND
+  // };
+}
 export const startAuth = () => {
   return {
     type: types.START_AUTH
@@ -42,46 +93,70 @@ export const setLoggedUser = decoded => {
     payload: decoded
   }
 }
-export const loginAuth = (email, password) => {
-  console.log(email, password)
+export const loginAuth = userData => {
+  // console.log()
+  let { email, password } = userData
 
   return dispatch => {
     // dispatch(startAuth())
     axios
-      .post('https://pacific-coast-97072.herokuapp.com/api/users/login', {
+      .post('/api/users/login', {
         // .post('http://192.168.0.214:5000/api/users/login', {
         // .post('http://10.0.2.2:5000/api/users/login', {
         email: email,
         password: password
       })
       .then(result => {
-        if (result.data.token !== "") {
-
+        if (result.data.token !== '') {
           const token = result.data.token
           AsyncStorage.setItem('token', token)
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
           const decoded = jwt_decode(token)
           setUserToken(token)
           dispatch(setLoggedUser(decoded))
         }
-        console.log(result)
-
-
-        // console.log(result)
-
-
-        // //sets the expirey date
-        // const expire = new Date(new Date().getTime() + 10000 * 1000)
-        // console.log(token)
-        // console.log(result.data)
-
-        //stores the the token and the expireation date in the browser
-        //as a cookie
-        // localStorage.setItem('token', token)
-        // console.log(decoded)
       })
       .catch(err => {
         console.log(err)
       })
+  }
+}
+export const getCurrentUser = () => {
+  return dispatch => {
+    axios
+      .get('/api/users/current')
+      .then(result => {
+        console.log(result.data.user)
+
+        dispatch(setLoggedUser(result.data.user))
+        // console.log(result.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+}
+export const getSearchedUser = id => {
+  return dispatch => {
+    axios
+      .get(`/api/users/${id}`)
+      // .get(`https://jsonplaceholder.typicode.com/todos/1`)
+      .then(result => {
+        // dispatch(setLoggedUser(result.data.user))
+        dispatch(setSearchedUser(result.data.user[0]))
+        // console.log(result.data.user[0])
+        // dispatch(setSearchedUser(result.data.user[0]))
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+}
+
+export const setSearchedUser = user => {
+  return {
+    type: types.SET_SEARCHED_USER,
+    payload: user
   }
 }
 export const registerAuth = (password, name, email) => {
@@ -103,6 +178,27 @@ export const registerAuth = (password, name, email) => {
         console.log(err)
       })
   }
+}
+export const addFriend = user_id => dispatch => {
+  console.log(user_id)
+  // dispatch({
+  //   type: types.ADD_FRIEND
+  // })
+  // axios
+  //   .post(`/api/users/friends/add/${user_id}`, user_id)
+  //   .then(res => {
+  //     console.log(res.data)
+  //   })
+
+  //   .catch(err =>
+  //     dispatch({
+  //       type: types.FAIL_ADD_FRIEND,
+  //       payload: err.response.data
+  //     })
+  //   )
+  // return {
+  //   type: types.ADD_FRIEND
+  // }
 }
 // export const logoutUser = () => dispatch => {
 //   // console.log(result)

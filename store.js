@@ -2,7 +2,7 @@ import { compose, createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'remote-redux-devtools'
-
+import { devToolsEnhancer } from 'redux-devtools-extension'
 // import { persistStore, persistReducer } from "redux-persist";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

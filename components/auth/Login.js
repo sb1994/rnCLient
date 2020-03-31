@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, Button, TextInput } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import axios from "axios"
+import axios from 'axios'
 import { connect } from 'react-redux'
 import { loginAuth } from '../../actions/userAuthActions'
 class Login extends Component {
@@ -17,33 +17,6 @@ class Login extends Component {
       password: ''
     }
     this.loginUser = this.loginUser.bind(this)
-  }
-  componentDidMount() {
-    // console.log(this.props.auth)
-
-    axios.get("https://pacific-coast-97072.herokuapp.com/api/users/").then(res => {
-      console.log(res.data)
-
-    }).catch(err => {
-      console.log(err)
-
-    })
-
-    if (this.props.auth.isAuthenticated) {
-      this.props.navigation.navigate('Dashboard')
-    }
-  }
-  componentWillUpdate(nextProps) {
-    // console.log(nextProps)
-
-    if (nextProps.auth.isAuthenticated) {
-      nextProps.navigation.navigate('Dashboard')
-      // navigation.push('Dashboard')
-    }
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors })
-    }
-    // console.log(nextProps)
   }
   loginUser() {
     let { email, password } = this.state
@@ -60,6 +33,7 @@ class Login extends Component {
           style={{ height: 40 }}
           placeholder='Enter Email!'
           onChangeText={email => this.setState({ email })}
+          // value={this.state.email}
           value={this.state.email}
         />
 
