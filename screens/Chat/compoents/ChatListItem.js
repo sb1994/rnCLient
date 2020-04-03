@@ -26,6 +26,9 @@ class ChatListItem extends Component {
             source={{ uri: message.user.profile_pic }}
             style={styles.messageProfilePic}
           />
+          <View style={styles.textContainer}>
+            <Text>{message.text}</Text>
+          </View>
         </View>
       )
     }
@@ -45,12 +48,18 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row-reverse',
     margin: 10,
-    width: '60%',
     backgroundColor: 'orange'
   },
   textContainer: {
     // width: '50%'
+    flexGrow: 1,
+    flex: 1
   },
+  textStyle: {
+    flex: 1,
+    flexWrap: 'wrap'
+  },
+
   messageProfilePic: {
     height: 50,
     width: 50
