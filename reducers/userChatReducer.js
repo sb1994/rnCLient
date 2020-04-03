@@ -8,19 +8,25 @@ const initialState = {
   currentChatId: '',
   post: {},
   loading: false,
-  postAdded: false
+  postAdded: false,
+  chat: []
 }
 
-const post = (state = initialState, action) => {
+const chat = (state = initialState, action) => {
   switch (action.type) {
     case JOIN_PRIVATE_CHAT:
       return {
         ...state,
         currentChatId: action.id
       }
+    case GET_CHAT_POSTS:
+      return {
+        ...state,
+        chat: action.payload
+      }
 
     default:
       return state
   }
 }
-export default post
+export default chat

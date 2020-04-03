@@ -8,7 +8,7 @@ class ProfileDetail extends Component {
   componentDidMount() {
     this.props.getCurrentUser()
 
-    console.log(this.props.auth.user)
+    // console.log(this.props.auth.user)
   }
   render() {
     let { auth, navigation } = this.props

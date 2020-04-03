@@ -23,6 +23,8 @@ export class ProfileScreen extends Component {
     // console.log(user.profile_pic)
 
     let { user } = this.props.auth
+    // console.log(user)
+
     let { navigation, route } = this.props
     // console.log(route)
 
@@ -35,8 +37,8 @@ export class ProfileScreen extends Component {
         >
           <ScrollView showsVerticalScrollIndicator={false}>
             <ProfileDetail navigation={navigation} />
-            <PostForm feedId={user.id} />
-            <PostFeed feedId={user.id} />
+            <PostForm feedId={user._id} />
+            <PostFeed feedId={user._id} />
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>

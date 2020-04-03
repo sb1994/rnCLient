@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
+import ConnectedUserListItem from './ConnectedUserListItem'
 import { connect } from 'react-redux'
 // import _ from 'lodash'
 import { concat, filter, orderBy } from 'lodash'
@@ -22,12 +23,16 @@ class ConnectedUsersList extends Component {
     // console.log(renderUsers)
 
     return (
-      <View>
+      <View style={styles.container}>
         <Text> Connected list </Text>
-        {/* <FlatList
-          data={renderUsers}
-          renderItem={({ item }) => <Text>{item._id}</Text>}
-        /> */}
+        <FlatList
+          data={connectedUsers}
+          horizontal
+          // pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.key}
+          renderItem={({ item }) => <ConnectedUserListItem user={item.value} />}
+        />
       </View>
     )
   }
@@ -38,5 +43,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {}
-
+const styles = StyleSheet.create({
+  container: {
+    height: 100
+  }
+})
 export default connect(mapStateToProps, mapDispatchToProps)(ConnectedUsersList)

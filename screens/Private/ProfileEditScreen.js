@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 class ProfileEditScreen extends Component {
   render() {
     let { auth, route } = this.props
-    console.log(route.params.data)
+    // console.log(route.params.data)
 
     return (
       <View>

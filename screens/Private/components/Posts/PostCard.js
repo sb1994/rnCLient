@@ -103,7 +103,7 @@ class PostCard extends Component {
             </View>
           </View>
           <View style={styles.cardHeaderControls}>
-            {post.feedId === auth.user.id ? (
+            {post.feedId === auth.user._id ? (
               <Button title='X' onPress={this.handlePostDelete} />
             ) : null}
           </View>

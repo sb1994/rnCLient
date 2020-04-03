@@ -76,7 +76,7 @@ export const getPosts = feedId => dispatch => {
     .then(res =>
       dispatch({
         type: GET_POSTS,
-        payload: res.data
+        payload: res.data.chat.chat
       })
     )
     .catch(err =>

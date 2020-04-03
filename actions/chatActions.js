@@ -1,16 +1,39 @@
-import axios from 'axios'
+import axios from '../axios'
 
 import {
   JOIN_PRIVATE_CHAT,
   GET_CHAT_POST,
   GET_CHAT_POSTS
 } from './action_types'
+export const getChatMessages = () => {
+  return dispatch => {
+    axios
+      .get('/api/chat/get')
+      .then(
+        res => {
+          dispatch({
+            type: GET_CHAT_POSTS,
+            payload: res.data
+          })
+          // console.log(res.data)
+        }
 
-export const updateChatId = postData => dispatch => {
-  //   dispatch({
-  //     type: UPDATE_CHAT_ID,
-  //     payload: err.response.data
-  //   })
+        // console.log(res)
+      )
+      .catch(err =>
+        // dispatch({
+        //   type: GET_ERRORS,
+        //   payload: err.response.data
+        // })
+        console.log(err)
+      )
+  }
+}
+export const updateChatId = chatId => dispatch => {
+  dispatch({
+    type: UPDATE_CHAT_ID,
+    payload: err.response.data
+  })
 
   console.log(postData)
 
