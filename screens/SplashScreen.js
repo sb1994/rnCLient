@@ -16,28 +16,14 @@ class SplashScreen extends Component {
       // console.log(result)
       if (result === null) {
         console.log('token doent exist')
-        // this.setState({
-        //   tokenAuth: false
-        // })
-        // console.log(navigation)
 
         navigation.push('Login')
       } else {
-        // AsyncStorage.removeItem('token')
-        // console.log(result)
         const decoded = jwt_decode(result)
-        // console.log(decoded)
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${result}`
 
-        // console.log(axios.defaults)
-
         this.props.setLoggedUser(decoded)
-
-        // // console.log(decoded)
-        // this.setState({
-        //   tokenAuth: true
-        // })
         navigation.push('Profile', {
           params: {
             feedId: this.props.auth.user.id
@@ -45,21 +31,8 @@ class SplashScreen extends Component {
         })
       }
     })
-
-    // !auth.isAuthenticated
-    //   ?
-    //   :
-
-    // console.log(navigation)
-    // navigation.push('Login')
-    // console.log(this.props.auth)
   }
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.auth.isAuthenticated) {
-  //     console.log('authenticaed')
-  //     this.props.navigation.push('Profile')
-  //   }
-  // }
+
   render() {
     return (
       <View style={styles.container}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Button, Image } from 'react-native'
+import { View, Text, StyleSheet, Button, Image, ScrollView } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSearchedUser, addFriend } from '../../actions/userAuthActions'
@@ -25,29 +25,21 @@ class SearchUserDetailScreen extends Component {
     // console.log(auth.searchedUser)
     let { searchedUser, user } = auth
 
-    // console.log(user)
-
-    let currentFriends = searchedUser.friends.filter(friend => {
-      return friend.user === auth.user._id
-    })
-
     return (
-      <View>
-        <View style={styles.container}>
-          <Image
-            style={styles.profile_pic}
-            source={{ uri: searchedUser.profile_pic }}
-          />
-          <Text style={styles.profileNameText}>{searchedUser.name}</Text>
+      <View style={styles.profileScreenContainer}>
+        <ScrollView>
+          <View style={styles.container}>
+            <Image
+              style={styles.profile_pic}
+              source={{ uri: searchedUser.profile_pic }}
+            />
+            <Text style={styles.profileNameText}>{searchedUser.name}</Text>
 
-          <SocialDetail user={searchedUser} />
-          {currentFriends.length === 0 || currentFriends === undefined ? (
-            <Button title='Add Friend' onPress={this.handleFriendRequest} />
-          ) : null}
-          {/* <Button title='Add Friend' onPress={this.handleFriendRequest} /> */}
-        </View>
-        <PostForm feedId={id} />
-        <PostFeed feedId={id} />
+            <SocialDetail user={searchedUser} />
+          </View>
+          <PostForm feedId={searchedUser._id} />
+          <PostFeed feedId={searchedUser._id} />
+        </ScrollView>
       </View>
     )
   }
@@ -60,6 +52,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {}
 const styles = StyleSheet.create({
+  profileScreenContainer: {
+    backgroundColor: '#fff'
+  },
   container: {
     margin: 10,
     backgroundColor: '#fff',

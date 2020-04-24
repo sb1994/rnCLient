@@ -25,7 +25,7 @@ class SearchListItem extends Component {
             onPress={() =>
               navigation.navigate('Search', {
                 screen: 'SearchUserDetail',
-                params: { id: user._id }
+                params: { id: user._id, title: user.name }
               })
             }
           />

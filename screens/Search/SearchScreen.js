@@ -40,11 +40,9 @@ class SearchScreen extends Component {
           <FlatList
             data={users}
             keyExtractor={item => item._id}
-            renderItem={({ item }) =>
-              item._id === auth.user._id ? null : (
-                <SearchListItem user={item} navigation={navigation} />
-              )
-            }
+            renderItem={({ item }) => (
+              <SearchListItem user={item} navigation={navigation} />
+            )}
             style={styles.listContainer}
           />
         </View>
@@ -63,11 +61,9 @@ class SearchScreen extends Component {
           <FlatList
             data={fileredUsers}
             keyExtractor={item => item._id}
-            renderItem={({ item }) =>
-              item._id === auth.user.id ? null : (
-                <SearchListItem user={item} navigation={navigation} />
-              )
-            }
+            renderItem={({ item }) => (
+              <SearchListItem user={item} navigation={navigation} />
+            )}
             style={styles.listContainer}
           />
         </View>

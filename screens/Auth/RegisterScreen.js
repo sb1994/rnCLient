@@ -45,6 +45,7 @@ export class RegisterScreen extends Component {
         <TextInput
           style={styles.textInput}
           placeholder='Enter Password!'
+          secureTextEntry={true}
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />

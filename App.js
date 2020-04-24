@@ -43,15 +43,96 @@ const AppTabStack = createBottomTabNavigator()
 //Profile Stack
 const ProfileStackNavigator = () => (
   <ProfileStack.Navigator>
-    <ProfileStack.Screen name='ProfileDetail' component={ProfileScreen} />
-    <ProfileStack.Screen name='ProfileEdit' component={ProfileEditScreen} />
+    <ProfileStack.Screen
+      name='ProfileDetail'
+      component={ProfileScreen}
+      options={{
+        title: 'Profile Detail',
+        headerTintColor: '#ffffff',
+        /*headerBackground: (
+          <Image
+              style={StyleSheet.absoluteFill}
+              source={require('./imgs/yr_logo.png')}
+          />
+      ),*/
+        headerStyle: {
+          backgroundColor: '#2abbac',
+          borderBottomColor: 'black',
+          borderBottomWidth: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18
+        }
+      }}
+    />
+    <ProfileStack.Screen
+      name='ProfileEdit'
+      component={ProfileEditScreen}
+      options={{
+        title: 'Edit Profile',
+        headerTintColor: '#ffffff',
+        /*headerBackground: (
+          <Image
+              style={StyleSheet.absoluteFill}
+              source={require('./imgs/yr_logo.png')}
+          />
+      ),*/
+        headerStyle: {
+          backgroundColor: '#2abbac',
+          borderBottomColor: 'black',
+          borderBottomWidth: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18
+        }
+      }}
+    />
   </ProfileStack.Navigator>
 )
 const SearchStackNavigator = () => (
   <SearchStack.Navigator>
-    <SearchStack.Screen name='SearchScreen' component={SearchScreen} />
+    <SearchStack.Screen
+      name='SearchScreen'
+      component={SearchScreen}
+      options={{
+        title: 'User Search',
+        headerTintColor: '#ffffff',
+        /*headerBackground: (
+          <Image
+              style={StyleSheet.absoluteFill}
+              source={require('./imgs/yr_logo.png')}
+          />
+      ),*/
+        headerStyle: {
+          backgroundColor: '#2abbac',
+          borderBottomColor: 'black',
+          borderBottomWidth: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18
+        }
+      }}
+    />
     <SearchStack.Screen
       name='SearchUserDetail'
+      options={{
+        title: 'User Details',
+        headerTintColor: '#ffffff',
+        /*headerBackground: (
+          <Image
+              style={StyleSheet.absoluteFill}
+              source={require('./imgs/yr_logo.png')}
+          />
+      ),*/
+        headerStyle: {
+          backgroundColor: '#2abbac',
+          borderBottomColor: 'black',
+          borderBottomWidth: 0
+        },
+        headerTitleStyle: {
+          fontSize: 18
+        }
+      }}
       component={SearchUserDetailScreen}
     />
   </SearchStack.Navigator>
@@ -61,8 +142,14 @@ const SearchStackNavigator = () => (
 const AuthTabStackNavigator = () => (
   <AuthTabStack.Navigator
     tabBarOptions={{
-      activeTintColor: '#e91e63',
-      padding: 10
+      inactiveBackgroundColor: '#2abbac',
+      activeBackgroundColor: '#2abbac',
+      backgroundColor: '#2abbac',
+      activeTintColor: '#fffdd0',
+      inactiveTintColor: '#fff',
+      padding: 10,
+      fontSize: 50,
+      textAlign: 'center'
     }}
   >
     <AuthTabStack.Screen name='Profile' component={ProfileStackNavigator} />
@@ -70,37 +157,20 @@ const AuthTabStackNavigator = () => (
     <AuthTabStack.Screen name='Chat' component={ChatScreen} />
   </AuthTabStack.Navigator>
 )
-// const AuthTabStackNavigator = () => (
-//   <AuthTabStack.Navigator
-//
-//   >
-//     <AuthTabStack.Screen name='Profile' component={ProfileStackNavigator} />
-//     <AuthTabStack.Screen name='Search' component={SearchScreen} />
-//     {/* <AuthTabStack.Screen name='Login' component={LoginScreen} />
-//     <AuthTabStack.Screen name='Register' component={RegisterScreen} /> */}
-//   </AuthTabStack.Navigator>
-// )
-
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer style={styles.container}>
         <Stack.Navigator headerMode='none'>
           <Stack.Screen name='Splash' component={SplashScreen} />
           <Stack.Screen name='Login' component={LoginScreen} />
           <Stack.Screen name='Register' component={RegisterScreen} />
           <Stack.Screen name='Profile' component={AuthTabStackNavigator} />
-          {/* <Stack.Screen name='Auth' component={AuthTabStackNavigator} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   )
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+  container: {}
 })

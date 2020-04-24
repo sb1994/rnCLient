@@ -2,10 +2,17 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
+import moment from 'moment'
 class Comment extends Component {
   render() {
     let { comment } = this.props
+
+    // let stillUTC = moment.utc(comment.created).toDate()
+    // console.log(stillUTC)
+
+    // let created = moment.locale('uk').format(stillUTC, 'DD-MM-YYYY HH:mm')
+    // console.log(created)
+
     return (
       <View style={styles.commentContainer}>
         <View style={styles.profilePicContainer}>
@@ -15,7 +22,17 @@ class Comment extends Component {
           />
         </View>
         <View style={styles.commentBody}>
-          <Text>{comment.text}</Text>
+          <View style={styles.commentDetailsView}>
+            <View style={styles.commentUsername}>
+              <Text style={{ color: 'white' }}>{comment.user.name}</Text>
+            </View>
+            <View style={styles.commentUsername}>
+              {/* <Text style={{ color: 'white' }}>{created}</Text> */}
+            </View>
+
+            {/* </View> */}
+          </View>
+          <Text style={{ color: 'white' }}>{comment.text}</Text>
         </View>
       </View>
     )
@@ -27,12 +44,12 @@ const mapStateToProps = state => ({})
 const mapDispatchToProps = {}
 const styles = StyleSheet.create({
   commentContainer: {
+    backgroundColor: '#2abbac',
     margin: 10,
-    borderWidth: 1,
-    borderColor: 'black',
-    borderTopColor: 'red',
+    borderWidth: 0,
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    padding: 10
   },
   profilePicContainer: {
     paddingRight: 10
@@ -41,6 +58,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     padding: 12
+  },
+  commentDetailsView: {
+    flexDirection: 'row'
   }
 })
 

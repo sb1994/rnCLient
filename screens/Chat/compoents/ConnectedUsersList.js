@@ -24,7 +24,6 @@ class ConnectedUsersList extends Component {
 
     return (
       <View style={styles.container}>
-        <Text> Connected list </Text>
         <FlatList
           data={connectedUsers}
           horizontal
@@ -45,7 +44,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {}
 const styles = StyleSheet.create({
   container: {
-    height: 100
+    height: 90,
+    backgroundColor: '#2abbac'
   }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ConnectedUsersList)

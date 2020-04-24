@@ -3,7 +3,7 @@ import { GET_USERS, FILTER_USERS, USERS_LOADING } from './action_types'
 import axios from '../axios'
 
 export const getUsers = () => dispatch => {
-  console.log('Hello')
+  // console.log('Hello')
 
   axios
     .get('/api/users')

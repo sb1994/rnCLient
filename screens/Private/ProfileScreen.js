@@ -55,7 +55,8 @@ const mapDispatchToProps = {}
 const styles = StyleSheet.create({
   container: {
     marginTop: 5,
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
   profile_img: {
     height: 50,

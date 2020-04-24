@@ -69,14 +69,14 @@ export const addPost = postData => dispatch => {
 // Get Posts
 export const getPosts = feedId => dispatch => {
   // dispatch(setPostLoading());
-  console.log(feedId)
+  // console.log(feedId)
 
   axios
     .get(`/api/posts/feed/${feedId}`)
     .then(res =>
       dispatch({
         type: GET_POSTS,
-        payload: res.data.chat.chat
+        payload: res.data
       })
     )
     .catch(err =>

@@ -31,8 +31,16 @@ class PostForm extends Component {
   handleCreatePost = () => {
     let { auth, feedId } = this.props
     let { text, post_pic } = this.state
-    // console.log('post added')
-    // console.log(auth)
+    console.log(feedId)
+
+    // if (feedId === undefined) {
+    //   console.log('FeedId Not Set')
+    // } else {
+    //   console.log('Auth Id will be used')
+    // }
+
+    console.log('post added')
+    console.log(auth)
     if (post_pic === null && text === '') {
       Alert.alert('Cannot Create Post with No Input')
     } else if (post_pic === null && text !== '') {
@@ -56,7 +64,7 @@ class PostForm extends Component {
         text: text,
         post_pic: post_pic,
         postImgURL: '',
-        feedId: auth.feedId
+        feedId
       }
 
       console.log(newPost)
@@ -112,11 +120,6 @@ class PostForm extends Component {
     if (!result.cancelled) {
       const response = await fetch(result.uri)
       const blob = await response.blob()
-
-      // console.log(blob)
-
-      // console.log(blob)
-
       this.setState({
         post_pic: blob,
         postImgURL: result.uri
@@ -166,7 +169,11 @@ class PostForm extends Component {
             onPress={this.handleImageUpload}
             title='Upload Image'
           />
-          <Button onPress={this.handleCameraUpload} title='Take Picture' />
+          <Button
+            onPress={this.handleCameraUpload}
+            title='Take Picture'
+            style={{ maRight: 10 }}
+          />
           <Button onPress={this.handleCreatePost} title='Add Post' />
         </View>
       </View>
@@ -188,11 +195,12 @@ const styles = StyleSheet.create({
     // flexDirection: 'row'
   },
   inputContainer: {
-    flexDirection: 'row'
-    // alignItems: 'center',
-    // justifyContent: 'center'
+    borderColor: '#2abbac',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
-  input: { paddingHorizontal: 10 },
+  input: { paddingHorizontal: 20 },
   uploadImagePreview: {
     height: 300,
     width: 300

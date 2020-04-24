@@ -61,6 +61,7 @@ class PostCard extends Component {
         <Modal visible={this.state.openModal} animationType='slide'>
           <View style={styles.modalHeader}>
             <Button
+              backgroundColor='#3a6bc3'
               title='X'
               onPress={() => {
                 // console.log(post.comments)
@@ -71,20 +72,23 @@ class PostCard extends Component {
           </View>
           <ScrollView>
             <View style={styles.modalBody}>
-              <FlatList
-                data={comments}
-                keyExtractor={item => item._id}
-                renderItem={({ item }) => <Comment comment={item} />}
-              />
+              <View style={{ maxHeight: '85%' }}>
+                <FlatList
+                  data={comments}
+                  keyExtractor={item => item._id}
+                  renderItem={({ item }) => <Comment comment={item} />}
+                />
+              </View>
 
-              <View>
+              <View style={styles.commentInputGroup}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder='How is the Corona Feeling'
+                  placeholder='Say what you think'
                   onChangeText={text => this.setState({ text })}
                   value={this.state.text}
                 />
                 <Button
+                  backgroundColor='#3a6bc3'
                   title='Add Comment'
                   onPress={this.handleCommentCreate}
                 />
@@ -99,19 +103,24 @@ class PostCard extends Component {
               style={styles.userPostProfilePic}
             />
             <View>
-              <Text>{post.user.name}</Text>
+              <Text style={{ color: 'white' }}>{post.user.name}</Text>
             </View>
           </View>
           <View style={styles.cardHeaderControls}>
             {post.feedId === auth.user._id ? (
-              <Button title='X' onPress={this.handlePostDelete} />
+              <Button
+                title='X'
+                onPress={this.handlePostDelete}
+                color='red'
+                style={{ backgroundColor: 'red' }}
+              />
             ) : null}
           </View>
         </View>
         <View style={styles.cardBody}>
           {post.text === '' ? null : (
-            <View>
-              <Text>{post.text}</Text>
+            <View style={{ paddingLeft: 10 }}>
+              <Text style={{ color: 'black' }}>{post.text}</Text>
             </View>
           )}
           {post.postImgURL === '' ? null : (
@@ -120,6 +129,7 @@ class PostCard extends Component {
         </View>
         <View style={styles.cardFooter}>
           <Button
+            backgroundColor='#3a6bc3'
             title='View Comments'
             onPress={() => this.setState({ openModal: !this.state.openModal })}
           />
@@ -136,20 +146,31 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {}
 
 const styles = StyleSheet.create({
+  modalInputBtn: {
+    backgroundColor: '#3a6bc3'
+  },
+  commentInputGroup: {
+    padding: 10
+  },
+
   cardContainer: {
-    borderColor: 'blue',
+    borderColor: '#2abbac',
     borderWidth: 1,
     marginBottom: 5
+    // padding: 10
+    // borderRadius: 30
   },
   cardHeader: {
-    borderColor: 'green',
-    borderWidth: 1,
-    marginBottom: 5,
+    backgroundColor: '#2abbac',
+    // borderWidth: 1,
+    // marginBottom: 5,
     flexDirection: 'row'
   },
   cardHeaderDetails: {
     width: '80%',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingLeft: 10,
+    paddingVertical: 10
   },
   cardHeaderControls: {
     width: '20%'
@@ -159,13 +180,10 @@ const styles = StyleSheet.create({
     height: 50
   },
   cardBody: {
-    borderWidth: 1,
-    borderColor: 'red'
+    paddingTop: 5,
+    paddingBottom: 5
   },
-  cardFooter: {
-    borderWidth: 1,
-    borderColor: 'purple'
-  },
+  cardFooter: {},
   post_img: { height: 100, width: 100 }
 })
 

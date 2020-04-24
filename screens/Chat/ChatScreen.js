@@ -133,8 +133,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {}
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    flex: 1
+    marginTop: 23,
+    flex: 1,
+    backgroundColor: '#fff'
   },
   chatContainer: {
     height: 470

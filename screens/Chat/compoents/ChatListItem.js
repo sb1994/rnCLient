@@ -10,12 +10,17 @@ class ChatListItem extends Component {
     if (message.user._id === auth.user._id) {
       return (
         <View style={styles.authContainer}>
-          <Image
-            source={{ uri: message.user.profile_pic }}
-            style={styles.messageProfilePic}
-          />
+          <View>
+            <Image
+              source={{ uri: message.user.profile_pic }}
+              style={styles.messageProfilePic}
+            />
+          </View>
           <View style={styles.textContainer}>
-            <Text>{message.text}</Text>
+            <Text style={{ fontSize: 18, color: '#ffd' }}>
+              {message.user.name}
+            </Text>
+            <Text style={{ color: '#fff' }}>{message.text}</Text>
           </View>
         </View>
       )
@@ -26,8 +31,11 @@ class ChatListItem extends Component {
             source={{ uri: message.user.profile_pic }}
             style={styles.messageProfilePic}
           />
-          <View style={styles.textContainer}>
-            <Text>{message.text}</Text>
+          <View style={(styles.textContainer, { marginLeft: 10 })}>
+            <Text style={{ fontSize: 18, color: '#ffd' }}>
+              {message.user.name}
+            </Text>
+            <Text style={{ color: '#fff' }}>{message.text}</Text>
           </View>
         </View>
       )
@@ -42,27 +50,34 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     margin: 10,
-    width: '50%'
+    width: '60%',
+    borderRadius: 50,
+    backgroundColor: '#3a6bc3',
+    padding: 10
   },
   authContainer: {
     flex: 1,
     flexDirection: 'row-reverse',
     margin: 10,
-    backgroundColor: 'orange'
+    backgroundColor: '#2abbac',
+    padding: 10,
+    marginRight: 50,
+    borderRadius: 50
   },
   textContainer: {
     // width: '50%'
-    flexGrow: 1,
-    flex: 1
+    // flexGrow: 1,
+    flex: 1,
+    paddingLeft: 10
   },
   textStyle: {
-    flex: 1,
-    flexWrap: 'wrap'
+    // color:'#'
   },
 
   messageProfilePic: {
     height: 50,
-    width: 50
+    width: 50,
+    borderRadius: 50
   }
 })
 

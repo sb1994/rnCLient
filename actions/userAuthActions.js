@@ -18,6 +18,19 @@ export const registerUser = userData => dispatch => {
       })
     )
 }
+export const updateUser = userData => dispatch => {
+  // axios
+  //   .post('/api/users/update', userData)
+  //   .then(res => console.log(res.data))
+
+  //   .catch(err =>
+  //     dispatch({
+  //       type: types.FAIL_AUTH,
+  //       payload: err.response.data
+  //     })
+  //   )
+  console.log(userData)
+}
 export const cancelFriendRequest = user_id => dispatch => {
   // console.log(user_id);
   dispatch({

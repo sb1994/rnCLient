@@ -8,7 +8,9 @@ export class ConnectedUserListItem extends Component {
     let { user } = this.props
     return (
       <View style={styles.container}>
-        <Text> {user.name}</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.textUsername}> {user.name}</Text>
+        </View>
         <Image source={{ uri: user.profile_pic }} style={styles.profilePic} />
       </View>
     )
@@ -22,6 +24,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {}
 
 const styles = StyleSheet.create({
+  textUsername: {
+    color: '#fff'
+  },
   container: {
     margin: 5,
     alignItems: 'center',
